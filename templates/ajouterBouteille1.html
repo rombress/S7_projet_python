@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block title %}Choisir une Cave{% endblock %}
+
+{% block content %}
+
+<form action="/ajouterBouteille1" method="post">
+    <h1>Choisir la Cave:</h1><br>
+    {% if not caves %}
+    <h2> Vous n'avez pas de caves </h2
+    {% else %}
+    <select id="cave" name="cave">
+            {% for cave in caves %}
+                <option value="{{ cave[0] }}">{{ cave[0] }}</option>
+            {% endfor %}
+        </select><br>
+    <input type="submit" value="Choisir">
+    {% endif %}
+</form>
+{% endblock %}

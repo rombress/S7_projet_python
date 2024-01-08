@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block title %}Liste bouteille{% endblock %}
+
+{% block content %}
+
+    <h1>Liste des Bouteilles</h1>
+
+    <!-- Vérifiez s'il y a des bouteilles à afficher -->
+    {% if bouteilles %}
+        <table>
+            <tr>
+                <!-- En-têtes de colonne (ajustez selon vos données) -->
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Domaine</th>
+                <th>Type</th>
+				<th>Année</th>
+				<th>Région</th>
+				<th>Note Personnelle</th>
+				<th>Note Moyenne</th>
+				<th>Prix</th>
+				<th>Photo</th>
+            </tr>
+
+            <!-- Boucle pour lister les bouteilles -->
+            {% for bouteille in bouteilles %}
+            <tr>
+                <!-- Affichez les données de chaque bouteille (ajustez les indices) -->
+                <td>{{ bouteille[0] }}</td>
+                <td>{{ bouteille[1] }}</td>
+                <td>{{ bouteille[2] }}</td>
+                <td>{{ bouteille[3] }}</td>
+				<td>{{ bouteille[4] }}</td>
+				<td>{{ bouteille[5] }}</td>
+				<td>{{ bouteille[7] }}</td>
+				<td>{{ bouteille[8] }}</td>
+				<td>{{ bouteille[13] }}</td>
+				<td><img src="{{ url_for('static', filename='/uploads/' + bouteille[9] ) }}" width="200" height="200" style="vertical-align: bottom;"></td>
+				<td>
+					<form action="{{ url_for('archiver_bouteille') }}" method="post">
+						<input type="hidden" name="bouteille_id" value="{{ bouteille[0] }}">
+						<input type="hidden" name="cave_id" value="{{ cave_id }}">
+						<input type="hidden" name="etagere_id" value="{{ etagere_id }}">
+						<input type="text" name="note_archive" >
+						<button type="submit">Archiver</button>
+					</form>
+				</td>
+				
+				
+				<td>
+					<form action="{{ url_for('supprimer_bouteille') }}" method="post">
+					<input type="hidden" name="bouteille_id" value="{{ bouteille[0] }}">
+					<input type="hidden" name="cave_id" value="{{ cave_id }}">
+					<input type="hidden" name="etagere_id" value="{{ etagere_id }}">
+					<button type="submit">Supprimer</button>
+					</form>
+				</td>
+
+                <!-- Ajoutez d'autres données selon vos besoins -->
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <p>Aucune bouteille trouvée.</p>
+    {% endif %}
+	
+{% endblock %}

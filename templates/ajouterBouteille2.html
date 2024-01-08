@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block title %}Ajouter votre bouteille {% endblock %}
+
+{% block content %}
+<h1>Ajouter une bouteille dans la cave {{ cave_id }}</h1>
+<form method="POST" action="/ajouterBouteille2/{{ cave_id }}" enctype="multipart/form-data">
+        <label for="etagere">Sélectionnez une étagère :</label>
+        <select id="etagere" name="etagere" onchange="updateRegion()">
+            {% for etagere in etageres %}
+                <option value="{{ etagere[0] }}">{{ etagere[0] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="numero">Domaine :</label>
+        <input type="text" id="domaine" name="domaine" required>
+        <br>
+		
+		<label for="type">Type :</label>
+		<select id="type" name="type" required>
+			<option value="blanc">Blanc</option>
+			<option value="rouge">Rouge</option>
+		</select>
+		<br>
+		
+        <label for="region">Nom :</label>
+        <input type="text" id="nom" name="nom" required>
+        <br>
+		
+        <label for="annee">Année :</label>
+        <input type="number" id="annee" name="annee" required>
+        <br>
+		
+		<label for="region">Région :</label>
+        <input type="text" id="region" name="region" required>
+        <br>
+		
+		<label for="noteperso">Note personnelle :</label>
+		<input type="number" id="noteperso" name="noteperso" min="0" max="20" required>
+		<br>
+
+		<label for="prix">Prix :</label>
+        <input type="number" id="prix" name="prix" required>
+        <br>
+		
+		<label for="image">Image :</label>
+        <input type="file" id="file" name="file" required style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
+        
+        <input type="submit" value="Ajouter la bouteille">
+    </form>
+	
+	{% if error %}
+		<h3> Il n'y plus de place dans l'étagère </h3>
+	{% endif %}
+		<input type="hidden" id="cave-id" value="{{ cave_id }}">
+
+	<script>
+	function updateRegion() {
+		var etagereId = document.getElementById('etagere').value;
+		var caveId = document.getElementById('cave-id').value;
+		
+		fetch(`/get-region?etagereId=${etagereId}&caveId=${caveId}`)
+		.then(response => response.json())
+		.then(data => {
+			document.getElementById('region').value = data.region;
+		});
+	}
+	</script>
+
+{% endblock %}

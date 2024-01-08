@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Bonjour {{ user_authenticated }}</h1>
+
+    Voici vos cave : 
+	{% if caves %}
+        <ul>
+            {% for cave in caves %}
+                <li><a href="/cave/{{ cave[0] }}">{{ cave[0] }} 
+					<td>
+						<form action="{{ url_for('supprimer_cave') }}" method="post">
+						<input type="hidden" name="cave_id" value="{{ cave[0] }}">
+						<button type="submit">Supprimer</button>
+						</form>
+					</td>
+				</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune cave trouvée.</p>
+    {% endif %}
+{% endblock %}

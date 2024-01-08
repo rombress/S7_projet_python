@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <h2>Inscription</h2>
+	<form action="{{ url_for('register') }}" method="post">
+        <label for="username">Nom d'utilisateur:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Mot de passe:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="S'inscrire">
+    </form>
+    {% if error %}
+		<h3> Le nom d'utilisateur' est déjà utilisé </h3>
+	{% endif %}
+{% endblock %}

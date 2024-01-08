@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles2.css') }}">
+    <title>{% block title %}Accueil{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Ma cave à vin</h1>
+        <nav>
+            <ul>
+				<li><a href="{{ url_for('touteslesbouteilles') }}">Voir toutes les bouteilles</a></li>
+				{% if not user_authenticated %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('register') }}">Créer un compte</a></li>
+				{% else %}
+				<li><a href="{{ url_for('connexion_reussie') }}">Accueil</a></li>
+                <li><a href="{{ url_for('ajouterCave') }}">Ajouter Cave</a></li>
+                <li><a href="{{ url_for('ajouterEtagere') }}">Ajouter Étagère</a></li>
+                <li><a href="{{ url_for('ajouterBouteille1') }}">Ajouter Bouteille</a></li>
+				<li><a href="{{ url_for('archive') }}">Voir les archives</a></li>
+				<li><a href="{{ url_for('logout') }}">Logout</a></li>
+				{% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <!-- Votre contenu de pied de page ici -->
+        <p>Copyright © 2023 Romain BRESSY</p>
+    </footer>
+</body>
+</html>

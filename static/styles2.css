@@ -1,0 +1,103 @@
+/* Styles généraux */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* En-têtes */
+
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    background: #333;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+/* Styles des formulaires */
+form {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+form label, form input, form button {
+    display: block;
+    width: 100%;
+    padding: 5px;
+}
+
+form input[type='text'], 
+form input[type='number'], 
+form input[type='email'], 
+form input[type='password'], 
+form select, 
+form textarea {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Boutons */
+button, input[type='submit'] {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover, input[type='submit']:hover {
+    background: #0056b3;
+}
+
+/* Autres styles de lien */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Styles pour les messages d'erreur */
+.error {
+    color: red;
+    font-style: italic;
+}
+
+/* Header with Image */
+header {
+    background-image: url('/static/vue-dessus-fond-bois.jpg'); /* Replace with your image path */
+    background-size: cover;
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}

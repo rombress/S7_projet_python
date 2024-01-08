@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+
+{% block title %}Toutes les bouteilles{% endblock %}
+
+{% block content %}
+    <style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			margin: 0;
+		
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+		}
+		
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 25px 0;
+			font-size: 0.9em;
+			min-width: 400px;
+			border-radius: 5px 5px 0 0;
+			overflow: hidden;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+		}
+
+		table th,
+		table td {
+			
+			text-align: center;
+		}
+
+		table th {
+			background-color: #009879;
+			color: #ffffff;
+			text-transform: uppercase;
+		}
+
+		table tr {
+			border-bottom: 1px solid #dddddd;
+		}
+		
+		table tr:nth-of-type(even) {
+			background-color: #f3f3f3;
+		}
+		
+		table tr:last-of-type {
+			border-bottom: 2px solid #009879;
+		}
+
+		table img {
+			width: 100px; /* Ajustez la taille de l'image selon vos besoins */
+			height: auto;
+			border-radius: 5px;
+		}
+
+		/* Style pour les cellules contenant des notes */
+		.note-cell {
+		font-weight: bold;
+		}
+	
+	</style>
+	    <h1>Liste des Bouteilles</h1>
+		
+	<form action="{{ url_for('touteslesbouteilles') }}" method="get">
+    <select name="criteria">
+        <option value="nom">Nom</option>
+		<option value="domaine">Domaine</option>
+		<option value="type">Type</option>
+        <option value="annee">Année</option>
+        <option value="region">Région</option>
+		<option value="id_ref_u">Propriétaire</option>
+        <!-- Ajoutez d'autres critères si nécessaire -->
+    </select>
+    <input type="text" name="search" placeholder="Rechercher...">
+    <button type="submit">Recherche</button>
+	</form>
+    <table>
+            <tr>
+                <!-- En-têtes de colonne (ajustez selon vos données) -->
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Domaine</th>
+                <th>Type</th>
+				<th>Année</th>
+				<th>Région</th>
+				<th>Note Moyenne</th>
+				<th>Prix</th>
+				<th>Photo</th>
+				<th>Propriétaire</th>
+            </tr>
+
+            <!-- Boucle pour lister les bouteilles -->
+            {% for bouteille in bouteilles %}
+            <tr>
+                <!-- Affichez les données de chaque bouteille (ajustez les indices) -->
+                <td>{{ bouteille[0] }}</td>
+                <td>{{ bouteille[1] }}</td>
+                <td>{{ bouteille[2] }}</td>
+                <td>{{ bouteille[3] }}</td>
+				<td>{{ bouteille[4] }}</td>
+				<td>{{ bouteille[5] }}</td>
+				<td>{{ bouteille[8] }}</td>
+				<td>{{ bouteille[10] }}</td>
+				<td><img src="{{ url_for('static', filename='/uploads/' + bouteille[9] ) }}" width="200" height="200" style="vertical-align: bottom;"></td>
+				<td>{{ bouteille[15] }}</td>
+				
+
+                <!-- Ajoutez d'autres données selon vos besoins -->
+            </tr>
+            {% endfor %}
+        </table>
+
+    
+    
+{% endblock %}

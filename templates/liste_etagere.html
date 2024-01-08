@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}Liste étagère{% endblock %}
+
+{% block content %}
+
+    <p>Voici vos étagères dans la cave "{{ cave_id }}" :</p> 
+	{% if etageres %}
+		<table>
+            <tr>
+                <!-- En-têtes de colonne (ajustez selon vos données) -->
+                <th>Numéro d'étagère</th>
+                <th>Region</th>
+                <th>Nombre de place disponible</th>
+          
+            </tr>
+
+            <!-- Boucle pour lister les bouteilles -->
+            {% for etagere in etageres %}
+            <tr>
+                <!-- Affichez les données de chaque bouteille (ajustez les indices) -->
+                <td>{{ etagere[0] }}</td>
+                <td>{{ etagere[1] }}</td>
+                <td>{{ etagere[2] }}</td>
+				<td><a href="/cave/{{ cave_id }}/etagere/{{ etagere[0] }}">Voir les bouteilles</td>
+				<td>
+					<form action="{{ url_for('supprimer_etagere') }}" method="post">
+					<input type="hidden" name="etagere_id" value="{{ etagere[0] }}">
+					<input type="hidden" name="cave_id" value="{{ cave_id }}">
+					<button type="submit">Supprimer</button>
+					</form>
+				</td>
+
+                <!-- Ajoutez d'autres données selon vos besoins -->
+            </tr>
+            {% endfor %}
+        </table>
+	
+		{% else %}
+			<p>Aucune étagère trouvée.</p>
+		{% endif %}
+{% endblock %}

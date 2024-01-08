@@ -1,0 +1,126 @@
+{% extends 'layout.html' %}
+
+{% block title %}Archive{% endblock %}
+
+{% block content %}
+	<style>
+		/* Style de base pour le tableau */
+table {
+    width: 100%; /* Largeur complète */
+    border-collapse: collapse; /* Élimine l'espace entre les cellules */
+    font-family: Arial, sans-serif; /* Police lisible */
+    font-size: 0.9em; /* Taille de police adaptée */
+    text-align: left; /* Alignement du texte */
+    margin-top: 20px; /* Espacement en haut */
+}
+
+/* Style des en-têtes de colonnes */
+th {
+    background-color: #f2f2f2; /* Couleur de fond pour distinguer les en-têtes */
+    color: #333; /* Couleur du texte */
+    padding: 10px; /* Espacement intérieur */
+    border-bottom: 1px solid #ddd; /* Ligne séparatrice */
+}
+
+/* Style des lignes */
+td {
+    padding: 10px; /* Espacement intérieur */
+    border-bottom: 1px solid #ddd; /* Ligne séparatrice entre les rangées */
+}
+
+/* Style pour les images */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%; /* Ajustement de la largeur de l'image */
+    height: auto; /* Hauteur automatique pour conserver l'aspect ratio */
+}
+
+/* Style des boutons */
+button {
+    background-color: #4CAF50; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    padding: 8px 15px; /* Espacement intérieur */
+    margin: 4px 2px; /* Espacement extérieur */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bordures arrondies */
+    cursor: pointer; /* Style de curseur */
+}
+
+/* Style des boutons au survol */
+button:hover {
+    background-color: #45a049; /* Changement de couleur au survol */
+}
+
+/* Alternance de couleurs pour les lignes */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+	</style>
+	<h1>Voici les bouteilles archivées :</h1>
+	{% if Error %}
+		<h3> Impossible de désarchiver, plus de place dans l'étagère </h3>
+	{% endif %}
+	{% if bouteilles %}
+		<table>
+            <tr>
+                <!-- En-têtes de colonne (ajustez selon vos données) -->
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Domaine</th>
+                <th>Type</th>
+				<th>Année</th>
+				<th>Région</th>
+				<th>Note Personnelle</th>
+				<th>Note Moyenne</th>
+				<th>Prix</th>
+				<th>Photo</th>
+				<th>Note de l'archivage</th>
+				<th>Action1</th>
+				<th>Action2</th>
+            </tr>
+
+            <!-- Boucle pour lister les bouteilles -->
+            {% for bouteille in bouteilles %}
+            <tr>
+                <!-- Affichez les données de chaque bouteille (ajustez les indices) -->
+                <td>{{ bouteille[0] }}</td>
+                <td>{{ bouteille[1] }}</td>
+                <td>{{ bouteille[2] }}</td>
+                <td>{{ bouteille[3] }}</td>
+				<td>{{ bouteille[4] }}</td>
+				<td>{{ bouteille[5] }}</td>
+				<td>{{ bouteille[7] }}</td>
+				<td>{{ bouteille[8] }}</td>
+				<td>{{ bouteille[10] }}</td>
+				<td><img src="{{ url_for('static', filename='/uploads/' + bouteille[9] ) }}" width="200" height="200" style="vertical-align: bottom;"></td>
+				<td>{{ bouteille[12] }}</td>
+				<td>
+					<form action="{{ url_for('archive') }}" method="post">
+					<input type="hidden" name="bouteille_id" value="{{ bouteille[0] }}">
+					<input type="hidden" name="cave_id" value="{{ bouteille[14] }}">
+					<input type="hidden" name="etagere_id" value="{{ bouteille[13] }}">
+					<button type="submit">Désarchiver</button>
+				</form>
+				</td>
+				
+				
+				<td>
+					<form action="{{ url_for('supprimer_bouteille') }}" method="post">
+					<input type="hidden" name="bouteille_id" value="{{ bouteille[0] }}">
+					<input type="hidden" name="cave_id" value="{{ cave_id }}">
+					<input type="hidden" name="etagere_id" value="{{ etagere_id }}">
+					<button type="submit">Supprimer définitivement</button>
+					</form>
+				</td>
+			{% endfor %}
+			</table>
+	{% else %}
+		<h3> Vous n'avez archivé aucune bouteille </h3>
+	{% endif %}
+	
+
+{% endblock %}

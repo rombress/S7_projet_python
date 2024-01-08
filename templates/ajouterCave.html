@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Ajouter une cave{% endblock %}
+
+{% block content %}
+
+	<h1>Ajouter une cave</h1>
+    <form method="post" action="{{ url_for('ajouterCave') }}" >
+        <label for="nomC">Nom de la cave:</label>
+        <input type="text" name="nomC" required>
+        <br>
+        <input type="submit" value="Ajouter">
+    </form>
+	{% if error %}
+		<h3> Le nom de la Cave est déjà utilisé </h3>
+	{% endif %}
+	
+
+{% endblock %}
